@@ -1,3 +1,5 @@
+package Cinema;
+
 public class IngressoFamilia extends Ingresso {
 
     private int numeroDePessoas = 0;

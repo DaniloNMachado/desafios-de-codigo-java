@@ -1,3 +1,5 @@
+package Cinema;
+
 public class Ingresso {
 
     private double valor = 0;

@@ -1,3 +1,5 @@
+package Cinema;
+
 public class IngressoMeiaEntrada extends Ingresso {
 
     public IngressoMeiaEntrada(double valor, String filme, boolean dublado) {
