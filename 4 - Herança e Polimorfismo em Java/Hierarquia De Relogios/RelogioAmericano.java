@@ -8,19 +8,30 @@ public class RelogioAmericano extends Relogio {
     }
 
     @Override
+    public void sincronizar(Relogio outRelogio) {
+        int novaHora = outRelogio.getHora();
+        int novoMinuto = outRelogio.getMinuto();
+        int novoSegundo = outRelogio.getSegundo();
+
+        this.setHora(novaHora);
+        this.setMinuto(novoMinuto);
+        this.setSegundo(novoSegundo);
+    }
+
+    @Override
     public String getHoraFormatada() {
         int horaBase24h = super.getHora();
 
         int horaAmericana;
-        String periodo:
+        String periodo;
 
-        if (horaBase24h == 0){
+        if (horaBase24h == 0) {
             horaAmericana = 12;
             periodo = "AM";
         } else if (horaBase24h == 12) {
             horaAmericana = 12;
             periodo = "PM";
-        } else if (horaBase24h > 12){
+        } else if (horaBase24h > 12) {
             horaAmericana = horaBase24h - 12;
             periodo = "PM";
         } else {

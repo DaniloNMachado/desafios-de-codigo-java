@@ -7,9 +7,9 @@ public abstract class Relogio {
     private int segundo;
 
     public Relogio(int hora, int minuto, int segundo) {
-        this.hora(hora);
-        this.minuto(minuto);
-        this.segundo(segundo);
+        this.setHora(hora);
+        this.setMinuto(minuto);
+        this.setSegundo(segundo);
     }
 
     public void setHora(int novaHora) {
