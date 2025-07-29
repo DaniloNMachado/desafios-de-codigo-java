@@ -1,77 +1,40 @@
-# Desafios de Código: Uma Jornada Prática em Java
+### 🚀 Projeto Principal: Sistema Bancário Completo (POO)
 
-![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
-![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
-![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
+Este projeto representa a consolidação de todos os conceitos de Programação Orientada a Objetos estudados. Trata-se de uma simulação de um sistema bancário básico, projetado com foco em boas práticas, reutilização de código e uma arquitetura limpa e escalável.
 
-## 🎯 Sobre Este Repositório
+#### Arquitetura e Decisões de Design
 
-Este repositório é o registro prático da minha evolução nos estudos de Java, documentando a jornada desde os conceitos fundamentais da programação procedural até a aplicação dos pilares da Programação Orientada a Objetos (POO). O projeto consiste em uma coleção de desafios de código resolvidos, cada um construído para solidificar e demonstrar a compreensão de conceitos-chave do desenvolvimento de software.
+O sistema foi estruturado em camadas lógicas para separar responsabilidades, uma prática comum no desenvolvimento de software profissional:
 
-O objetivo é apresentar não apenas o código funcional, mas também o processo de aprendizado, depuração e refatoração, refletindo a mentalidade de um desenvolvedor focado em soluções robustas e bem estruturadas.
+1.  **Camada de Domínio (Entidades):** Onde os "tijolos" do nosso sistema foram modelados.
+    * **`Conta.java` (Classe Mãe Abstrata):** Define o "contrato" fundamental para qualquer tipo de conta. Contém atributos comuns (`agencia`, `numeroConta`, `saldo`) e métodos abstratos (`sacar`, `depositar`, `transferir`), forçando as classes filhas a implementarem suas próprias regras de negócio.
+        * **Habilidade Demonstrada:** Abstração e Herança.
+    * **`ContaCorrente.java` e `ContaPoupanca.java` (Classes Filhas):** Implementações concretas que herdam de `Conta`. Cada uma sobrescreve (`@Override`) os métodos de operação para refletir suas regras específicas (ex: `ContaCorrente` pode usar um limite especial, enquanto `ContaPoupanca` não pode ter saldo negativo).
+        * **Habilidade Demonstrada:** Polimorfismo e Especialização.
+    * **`Transacao.java` (Record):** Utilização de um `record` do Java moderno para criar um objeto de transferência de dados (DTO) imutável e conciso, representando cada transação no histórico.
+        * **Habilidade Demonstrada:** Conhecimento de features modernas da linguagem Java.
 
-## ✨ Desafios Implementados
+2.  **Gerenciamento de Dados em Memória:**
+    * **`List<Transacao>`:** Cada objeto `Conta` possui uma lista interna (`ArrayList`) para armazenar seu próprio histórico de transações, simulando a persistência de dados em memória.
+        * **Habilidade Demonstrada:** Uso de Coleções (Collections Framework) para gerenciar dados.
 
-Os desafios foram organizados em etapas de complexidade crescente, cada uma focada em um conjunto específico de habilidades.
+3.  **Camada de Interação (Aplicação Principal):**
+    * **`Banco.java`:** O ponto de entrada do programa, responsável por interagir com o usuário. Ele não contém regras de negócio, apenas orquestra as chamadas aos objetos de conta.
+        * **Habilidade Demonstrada:** Separação de Responsabilidades (a interface do usuário é separada da lógica de negócio).
 
-### Fase 1: Lógica Procedural e Fundamentos de Java
+#### Funcionalidades Implementadas
 
-O foco inicial foi dominar a sintaxe da linguagem, o fluxo de controle e a interação com o usuário via console.
+* **Criação de Contas:** Permite a instanciação de `ContaCorrente` e `ContaPoupanca` com dados iniciais.
+* **Operações Bancárias Polimórficas:**
+    * **Depósito:** Adiciona valor ao saldo e registra uma transação no histórico.
+    * **Saque:** Valida se o saldo (ou saldo + limite) é suficiente antes de debitar o valor e registrar a transação. O método retorna um `boolean` para indicar o sucesso ou falha da operação, uma prática de design robusta.
+    * **Transferência (PIX):** Demonstra a interação entre objetos. O método `transferir` reutiliza a lógica dos métodos `sacar` (na conta de origem) e `depositar` (na conta de destino), evitando a duplicação de código (princípio DRY - Don't Repeat Yourself).
+* **Histórico de Transações (Extrato):** Cada operação bem-sucedida é registrada em uma lista de objetos `Transacao`, que pode ser consultada a qualquer momento, exibindo um extrato formatado com tipo, data, hora e valor.
 
-* **Calculadora de Soma e Subtração:** Leitura de uma `String` com múltiplos valores, uso de `.split()` para separá-los, e conversão (`parsing`) para realizar cálculos.
-* **Simulador de Conta Bancária (Versão Procedural):** Gerenciamento de estado com variáveis, criação de menu interativo com `while` e `switch`, e implementação de lógicas de negócio.
-* **Simulador de Carro (Versão Procedural):** Lógica condicional aninhada e complexa para gerenciar múltiplos estados interdependentes (velocidade, marcha, ignição).
-* **Máquina de Banho de Petshop:** Gerenciamento de estado e de recursos com capacidades limitadas (água, shampoo).
-* **Formatador de Telefone (Desafio de Lógica):** Manipulação de `String` e lógica condicional baseada no tamanho da entrada para aplicar formatações diferentes.
+#### O que este projeto demonstra:
 
-### Fase 2: Programação Orientada a Objetos (POO)
-
-Nesta fase, o foco foi a transição para o paradigma orientado a objetos, aplicando seus pilares para criar código mais organizado, reutilizável e escalável.
-
-* **Sistema de Ingressos de Cinema:**
-    * **Conceitos:** Herança (`extends`), Polimorfismo e Sobrescrita de Métodos (`@Override`) para calcular valores de ingressos `MeiaEntrada` e `Familia`.
-
-* **Hierarquia de Usuários de um Sistema:**
-    * **Conceitos:** Encapsulamento (`private`, getters/setters), Construtores (`this`), chamada de construtor da superclasse (`super`), e criação de uma hierarquia com `Gerente`, `Vendedor` e `Atendente`.
-
-* **Hierarquia de Relógios do Mundo:**
-    * **Conceitos:** `Classes Abstratas` e `Métodos Abstratos` para definir um "contrato" para classes filhas (`RelogioBrasileiro`, `RelogioAmericano`). Prática de validação de dados nos `setters`.
-
-* **Sistema de Marketing Multicanal:**
-    * **Conceitos:** `Interfaces` para desacoplar o código, uso da palavra-chave `implements` e demonstração de polimorfismo com uma lista de objetos de diferentes classes (`EnviadorSMS`, `EnviadorEmail`, etc.) que compartilham a mesma interface.
-
-* **Sistema Bancário Avançado (Projeto Final da DIO):**
-    * **Descrição:** A consolidação de todos os conceitos de POO em um projeto mais robusto, simulando um sistema bancário com contas, transferências, investimentos e histórico de transações.
-    * **Conceitos-Chave:** Herança, Polimorfismo, Abstração, `Listas` (`ArrayList`) para gerenciamento de coleções de dados (histórico), e uso de `Records` para criar objetos de transferência de dados imutáveis (`Transacao`).
-
-### Fase 3: Introdução a Interfaces Gráficas (GUI)
-
-Uma breve exploração sobre como conectar a lógica de backend a uma interface visual.
-
-* **Interface Gráfica para o Banco:**
-    * **Conceitos:** Fundamentos de `Java Swing` (`JFrame`, `JButton`, `JLabel`), manipulação de layout e introdução ao tratamento de eventos com `ActionListener` e expressões lambda.
-
-## 🛠️ Tecnologias e Ferramentas
-
-* **Linguagem:** Java (JDK 21)
-* **IDE:** Visual Studio Code
-* **Versionamento:** Git & GitHub (via CLI e GUI do VS Code)
-* **Conceitos de POO:** Encapsulamento, Herança, Polimorfismo, Abstração
-* **Estruturas de Dados:** Arrays, `List`, `ArrayList`
-* **Outros:** `Records`, `Enums`, `Lombok` (mencionados no desafio final), `LocalDateTime`
-
-## 🚀 Como Executar os Projetos
-
-1.  Clone este repositório para a sua máquina local:
-    ```bash
-    git clone [https://github.com/DaniloNMachado/desafios-de-codigo-java/tree/main/4%20-%20Heran%C3%A7a%20e%20Polimorfismo%20em%20Java/Desafio%20de%20C%C3%B3digo]
-    ```
-2.  Abra a pasta do projeto em sua IDE de preferência (VS Code, IntelliJ, Eclipse).
-3.  Navegue até o arquivo `.java` que contém o método `main` do desafio que deseja executar.
-4.  Compile e execute o arquivo.
-
-## 📫 Contato
-
-Sinta-se à vontade para se conectar comigo e discutir sobre tecnologia e desenvolvimento!
-
-* **LinkedIn:** [Danilo Nogueira Machado](https://www.linkedin.com/in/danilo-nogueira-machado)
+Este projeto vai além de um simples exercício de sintaxe. Ele demonstra a capacidade de **modelar um problema do mundo real** usando os princípios da Orientação a Objetos, resultando em um código que é:
+* **Organizado:** Dividido em classes com responsabilidades claras.
+* **Reutilizável:** A lógica de `sacar` e `depositar` é reaproveitada pela função de `transferir`.
+* **Extensível:** A arquitetura com a classe abstrata `Conta` permite que novos tipos de conta (ex: `ContaSalario`, `ContaInvestimento`) sejam adicionados no futuro com o mínimo de esforço, sem quebrar o código existente.
+* **Robusto:** As validações garantem que as regras de negócio (como limites de saque) sejam sempre respeitadas.
