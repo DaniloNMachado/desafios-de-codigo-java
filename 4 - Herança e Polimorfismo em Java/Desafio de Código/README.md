@@ -64,7 +64,7 @@ Uma breve exploração sobre como conectar a lógica de backend a uma interface 
 
 1.  Clone este repositório para a sua máquina local:
     ```bash
-    git clone [URL_DO_SEU_REPOSITORIO_AQUI]
+    git clone [https://github.com/DaniloNMachado/desafios-de-codigo-java/tree/main/4%20-%20Heran%C3%A7a%20e%20Polimorfismo%20em%20Java/Desafio%20de%20C%C3%B3digo]
     ```
 2.  Abra a pasta do projeto em sua IDE de preferência (VS Code, IntelliJ, Eclipse).
 3.  Navegue até o arquivo `.java` que contém o método `main` do desafio que deseja executar.
